@@ -1,0 +1,10 @@
+//
+// Created by lukas on 5/19/23.
+//
+
+#ifndef VIRTUAL_POINTER_TIMEUTIL_H
+#define VIRTUAL_POINTER_TIMEUTIL_H
+
+#endif //VIRTUAL_POINTER_TIMEUTIL_H
+
+
