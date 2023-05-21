@@ -6,7 +6,7 @@
 
 #define WIFI_SSID        "HelloThere"
 #define WIFI_PASSWORD    "Wrathofkhan"
-const bool USE_12_HOUR_TIME = true;
+const bool USE_12_HOUR_TIME = false;
 
 unsigned int localPort = 2390;
 IPAddress timeServer(132, 163, 97, 3); // time.nist.gov NTP server
@@ -76,7 +76,6 @@ unsigned long getTime() {
     return epoch;
 }
 
-
 void reconnectWiFi() {
     while (WiFi.status() != WL_CONNECTED) {
         WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
@@ -99,7 +98,6 @@ void setup() {
     epochTime = getTime();
     millisAtEpoch = millis();
 }
-
 
 String getLocalTime() {
     unsigned long currentEpochTime = epochTime + (millis() - millisAtEpoch) / 1000;
@@ -226,8 +224,6 @@ void loginToComputer() {
     Keyboard.write(KEY_RETURN);
 }
 
-
-
 void morningEvent() {
     loginToComputer();
     delay(1000);
@@ -270,7 +266,6 @@ int eventTimes[NUM_EVENTS] = {
 // Additional global definition
 int eventMinutes[NUM_EVENTS] = {0, 0}; // set the event minutes
 
-
 bool eventRunToday[NUM_EVENTS] = {false};
 
 void onButtonPress() {
@@ -309,10 +304,10 @@ void handleEvents() {
 
 unsigned long lastMinuteMillis = 0;
 void wakeUp() {
-    Keyboard.press(KEY_CAPS_LOCK); // you can replace F1 with F2, F3, etc.
-    delay(10);
-    Keyboard.release(KEY_CAPS_LOCK); // make sure to release the same key
-    delay(10);
+    Keyboard.press(KEY_F19); // you can replace F1 with F2, F3, etc.
+    delay(100);
+    Keyboard.release(KEY_F19); // make sure to release the same key
+    delay(100);
 }
 
 bool isPressed = false;
@@ -355,7 +350,7 @@ void loop() {
 
 
     // Check if a minute has passed since the last time we called wakeUp()
-    if (millis() - lastMinuteMillis >= 4 * 1000) { // 60 * 1000 milliseconds in a minute
+    if (millis() - lastMinuteMillis >= 30 * 1000) { // 60 * 1000 milliseconds in a minute
         wakeUp();
         lastMinuteMillis = millis();
     }
